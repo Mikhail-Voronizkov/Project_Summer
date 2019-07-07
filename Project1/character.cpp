@@ -2,11 +2,11 @@
 
 using namespace std;
 
-void word::readword(word &content, FILE* fin) {
+void word::readword(char* filename){
 
 }
 
-void word::enscript(word &origin) {
+void word::enscript(int mode) {
 
 }
 
