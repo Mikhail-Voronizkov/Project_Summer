@@ -6,8 +6,8 @@
 class word
 {
 public:
-	void readword(word &content, FILE* fin);
-	void enscript(word &origin);
+	void readword(char* filename);
+	void enscript(int mode);
 	bool compare(char* charac);
 	char* getcontent() const;
 	char* getenscript() const;
