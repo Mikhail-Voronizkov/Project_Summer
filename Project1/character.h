@@ -1,4 +1,3 @@
-
 #ifndef _CHARACTER_H_
 #define _CHARACTER_H_
 #include<iostream>
@@ -7,7 +6,7 @@ class word
 {
 public:
 	void readword(char* filename);
-	void copystr(char* str);
+	void copycontent(char* str);
 	void enscript(int mode);
 	bool compare(char* charac);
 	int lenght();
@@ -19,7 +18,6 @@ private:
 	char* m_content;
 	char* m_enscript;
 	char* m_token;
-	
 };
 
 static int score, life;

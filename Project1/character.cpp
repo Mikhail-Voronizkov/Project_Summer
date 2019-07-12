@@ -7,7 +7,7 @@ void word::readword(char* filename){
 
 }
 
-void word::copystr(char* str) {
+void word::copycontent(char* str) {
 	int len = strlen(str);
 	m_content = (char*)malloc(len * sizeof(char));
 	strcpy(m_content, str);
