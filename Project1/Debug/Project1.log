@@ -1,6 +1,2 @@
 ﻿  Main.cpp
-e:\bai tap\thử nghiệm\project_summer\project_summer\project1\main.cpp(2): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
-  character.cpp
-e:\bai tap\thử nghiệm\project_summer\project_summer\project1\character.cpp(1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
-  Generating Code...
   Project1.vcxproj -> E:\Bai tap\Thử Nghiệm\Project_Summer\Project_Summer\Debug\Project1.exe
