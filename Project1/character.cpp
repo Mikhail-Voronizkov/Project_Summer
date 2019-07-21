@@ -1,6 +1,8 @@
 ﻿#include"character.h"
 #include<string.h>
 #include<time.h>
+#include"character.h"
+#include<string.h>
 
 using namespace std;
 
@@ -99,3 +101,4 @@ char* shift(char* str) {
 		delete[]str2;
 	}
 }
+

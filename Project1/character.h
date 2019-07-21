@@ -25,4 +25,5 @@ static char* playername;
 
 char* shift(char* str);
 
+
 #endif
