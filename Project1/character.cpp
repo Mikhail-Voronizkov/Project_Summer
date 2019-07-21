@@ -1,5 +1,6 @@
-#include"character.h"
+﻿#include"character.h"
 #include<string.h>
+#include<time.h>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ void word::enscript(int mode) {
 	}
 	int ai = 0;
 	int bi = 0;
-	char* a = (char*)malloc(len - (len / 2) * sizeof(char));
+	char* a = (char*)malloc(len - (len / 2)* sizeof(char));
 	char* b = (char*)malloc((len / 2) * sizeof(char));
 	for (int i = 0; i < len; i++) {
 		if (i % 2 == 0) {
@@ -73,3 +74,28 @@ char* word::getenscript() const {
 
 word::word():m_content(NULL), m_enscript(NULL), m_token(NULL){}
 
+char* shift(char* str) {
+	int len = strlen(str);
+	if (len < 4)
+		return str;
+	else {
+		srand(time(NULL));
+		int deviation = rand() % (len-4);				
+		if (deviation > len)
+			deviation = deviation - len;
+		char* str1 = (char*)malloc(len+1);
+		char* str2 = (char*)malloc(len + 1);
+		strcpy(str1, str);
+		for (int i = 0; i < len; i++) {
+			if (i - deviation < 0)
+				*(str2 + (i - deviation + len)) = *(str1 + i);
+			else
+				*(str2 + (i - deviation)) = *(str1 + i);
+		}
+		strcpy(str1, str2);
+		str1[len] = '\0';
+		return str1;
+		delete[]str1;
+		delete[]str2;
+	}
+}

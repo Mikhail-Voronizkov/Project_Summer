@@ -23,5 +23,6 @@ private:
 static int score, life;
 static char* playername;
 
+char* shift(char* str);
 
 #endif

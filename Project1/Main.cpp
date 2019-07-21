@@ -5,6 +5,8 @@
 using namespace std;
 
 int main() {
-	
+	char str[]="UNDERSTAND";
+	char* m=shift(str);
+	cout << m;
 	return 0;
 }
