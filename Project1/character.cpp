@@ -9,7 +9,7 @@ void Word::readfile(const char* filename, int line) {
 	char str1[256];
 	FILE* fin;
 	int i = 0;
-	fin = fopen("STRING.txt", "r");
+	fin = fopen(filename, "r");
 	if (fin==NULL) {
 		fclose(fin);
 		return;
