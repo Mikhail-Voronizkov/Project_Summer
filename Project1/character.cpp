@@ -1,31 +1,49 @@
 ﻿#include"character.h"
+#include<iostream>
 #include<string.h>
 #include<time.h>
-#include"character.h"
-#include<string.h>
 
 using namespace std;
 
-void word::readword(char* filename){
-
+void Word::readfile(const char* filename, int line) {
+	char str1[256];
+	FILE* fin;
+	int i = 0;
+	fin = fopen("STRING.txt", "r");
+	if (fin==NULL) {
+		fclose(fin);
+		return;
+	}
+	rewind(fin);
+	while (!feof(fin)) {
+		fgets(str1, 256, fin);
+		i++;
+		if (i == line) {
+			int len = strlen(str1);
+			m_content = (char*)malloc(len);
+			strcpy(m_content, str1);
+			break;
+		}
+	}
+	fclose(fin);
 }
 
-void word::copycontent(char* str) {
+void Word::copycontent(char* str) {
 	int len = strlen(str);
 	m_content = (char*)malloc(len * sizeof(char));
 	strcpy(m_content, str);
 }
 
-void word::enscript(int mode) {
+void Word::encrypt(int mode) {
 	int len = strlen(m_content);
-	m_enscript = (char*)malloc(len * sizeof(char));
-	strcpy(m_enscript, m_content);
+	m_encrypt = (char*)malloc(len * sizeof(char));
+	strcpy(m_encrypt, m_content);
 	if (len < 2)
 		return;
 	if (len == 2) {
-		char c = m_enscript[1];
-		m_enscript[1]= m_enscript[0];
-		m_enscript[0] = c;
+		char c = m_encrypt[1];
+		m_encrypt[1]= m_encrypt[0];
+		m_encrypt[0] = c;
 		return;
 	}
 	int ai = 0;
@@ -45,36 +63,37 @@ void word::enscript(int mode) {
 	a[ai] = '\0';
 	b[bi] = '\0';
 	if (mode == 1) {
-		strcpy(m_enscript, b);
-		strcpy(m_enscript + bi, a);
+		strcpy(m_encrypt, b);
+		strcpy(m_encrypt + bi, a);
 	}
 	else if(mode==2){
-		strcpy(m_enscript, a);
-		strcpy(m_enscript + ai, b);
+		strcpy(m_encrypt, a);
+		strcpy(m_encrypt + ai, b);
 	}
 }
 
-bool word::compare(char* charac) {
-
+bool Word::compare(char* str) {
+	if (_stricmp(m_content, str) == 0)
+		return true;
 	return false;
 }
 
-int word::lenght() {
+int Word::lenght() {
 	int len = 0;
 	while (*m_content++)
 		len++;
 	return len;
 }
 
-char* word::getcontent() const {
+char* Word::getcontent() const {
 	return m_content;
 }
 
-char* word::getenscript() const {
-	return m_enscript;
+char* Word::getencrypt() const {
+	return m_encrypt;
 }
 
-word::word():m_content(NULL), m_enscript(NULL), m_token(NULL){}
+Word::Word():m_content(NULL), m_encrypt(NULL), m_token(NULL){}
 
 char* shift(char* str) {
 	int len = strlen(str);
@@ -85,7 +104,7 @@ char* shift(char* str) {
 		int deviation = rand() % (len-4);				
 		if (deviation > len)
 			deviation = deviation - len;
-		char* str1 = (char*)malloc(len+1);
+		char* str1 = (char*)malloc(len + 1);
 		char* str2 = (char*)malloc(len + 1);
 		strcpy(str1, str);
 		for (int i = 0; i < len; i++) {

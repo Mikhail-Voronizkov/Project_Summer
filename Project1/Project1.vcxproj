@@ -121,9 +121,11 @@
   <ItemGroup>
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Process.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="character.h" />
+    <ClInclude Include="Process.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="MEANING.txt" />

@@ -1,12 +1,13 @@
 #include <iostream>
 #include<string.h>
 #include"character.h"
+#include"Process.h"
 
 using namespace std;
 
 int main() {
-	char str[]="UNDERSTAND";
-	char* m=shift(str);
-	cout << m;
+	Word ch;
+	ch.readfile("STRING.txt", 2);
+	cout << ch.getcontent() << endl;
 	return 0;
 }
