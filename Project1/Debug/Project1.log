@@ -1,6 +1,7 @@
 ﻿  Main.cpp
+e:\bai tap\thử nghiệm\project_summer\project_summer\project1\main.cpp(11): warning C4101: 'str1': unreferenced local variable
   Process.cpp
+e:\bai tap\thử nghiệm\project_summer\project_summer\project1\process.cpp(48): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   character.cpp
-e:\bai tap\thử nghiệm\project_summer\project_summer\project1\character.cpp(103): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating Code...
   Project1.vcxproj -> E:\Bai tap\Thử Nghiệm\Project_Summer\Project_Summer\Debug\Project1.exe
