@@ -18,15 +18,21 @@ void Word::readfile(const char* filename, int line) {
 	}
 	rewind(fin);
 	while (!feof(fin)) {
-		fgets(str1, 256, fin);	//Do hàm fgets nhận vào cả ký tự xuống dòng '\n' nhưng ta lại không muốn nhận ký tự xuống dòng//
+		fgets(str1, 256, fin);	
 		i++;
+		
 		if (i == line) {
-			int len = strlen(str1); //Ví dụ len=6 nghĩa là str1 có 1 ký tự xuống dòng cuối chuỗi và 5 ký tự khác//
-									//Trên bộ nhớ thì str1 trỏ tới vùng nhớ 7 byte = 5 byte ký tự + 1 byte '\n' + 1 byte '\0' //
-			m_content = (char*)malloc(len);	//Cấp cho con trỏ m_content 6 byte//
-			memmove(m_content, str1, len - 1); //Chỉ copy 5 ký tự vào m_content//
-			*(m_content + (len - 1)) = '\0'; //Thêm ký tự kết thúc chuỗi vào cuối chuỗi. Khi đó m_content trỏ vào vùng nhớ 6 byte, 5 byte cho ký tự, 1 byte cho ký tự kết thúc chuỗi //
-			break;
+			int len = strlen(str1); 
+			m_content = (char*)malloc(len);
+			memmove(m_content, str1, len);
+
+			//Trường hợp hàm fgets nhận ký tự xuống dòng//
+			//Ví dụ len=6 nghĩa là str1 có 1 ký tự xuống dòng cuối chuỗi và 5 ký tự khác//
+			//Trên bộ nhớ thì str1 trỏ tới vùng nhớ 7 byte = 5 byte ký tự + 1 byte '\n' + 1 byte '\0' //
+			if (*(m_content + (len - 1)) == '\n') {
+				*(m_content + (len - 1)) = '\0'; //Ghi đè ký tự kết thúc chuỗi lên ký tự xuống dòng. Khi đó m_content trỏ vào vùng nhớ 6 byte, 5 byte cho ký tự, 1 byte cho ký tự kết thúc chuỗi //
+				break;
+			}
 		}
 	}
 	fclose(fin);

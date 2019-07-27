@@ -7,11 +7,7 @@
 using namespace std;
 
 int main() {
-	Word ch;
-	char* str1;
-	char s[] = "HELLO";
-	resetdata();
-	ch.readfile("STRING.txt", 2);
-	encrypt(ch);
-	cout << ch.getencrypt();
+	newgame();
+	return 0;
 }
+	

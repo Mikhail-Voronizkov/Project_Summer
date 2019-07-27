@@ -7,6 +7,10 @@
 
 using namespace std;
 
+//Global
+int score, life, line, level;
+char playername[20], answer[256];
+
 void resizeConsole(int width, int height)
 {
 	_COORD coord;
@@ -38,9 +42,9 @@ void GotoXY(int x, int y)
 void resetdata() {
 	level = 1;
 	life = 3;
-	line = 0;
+	line = 1;
 	score = 0;
-	strcpy(playername,"Player_1");
+	strcpy(answer, "");
 }
 
 void encrypt(Word &ch) {
@@ -50,5 +54,60 @@ void encrypt(Word &ch) {
 	int deviation = rand() % (len - 1);
 	ch.encrypt(mode);
 	ch.shift(deviation);
+}
+
+bool processpassgame(Word ch, char answer[]) {
+	if (ch.compare(answer))
+		return true;
+	else
+	{
+		life = life - 1;
+		return false;
+	}
+}
+
+void start() {
+	Word ch;
+	while (true) {
+		//Check gameover//
+		if (life <= 0)
+			gameover();
+		//Print quest//
+		ch.readfile("STRING.txt", line);
+		encrypt(ch);
+		cout << ch.getencrypt() << endl;
+		//Recieve answer
+		do {
+			cout << "life: "<< life << endl;
+			cout << "YOUR ANSWER: ";
+			gets_s(answer, 256);
+			cout << endl;
+		} while (!processpassgame(ch, answer) && life > 0);
+		//next word
+		line++;
+	}
+}
+
+void newgame() {
+	resetdata();
+	start();
+}
+
+
+void gameover() {
+	system("cls");
+	cout << "GAME OVER" << endl;
+	Sleep(4000);
+	exit(0);
+	/*cout << "Press 1 to play again" << endl;
+	cout << "Press 2 to exit" << endl;
+	int choose = 0;
+	cin >> choose;
+	if (_kbhit()) {
+		if (choose == 1)
+			newgame();
+		else if (choose == 2)
+			exit(0);
+	}*/
 }
 
