@@ -18,19 +18,24 @@ void Word::readfile(const char* filename, int line) {
 	}
 	rewind(fin);
 	while (!feof(fin)) {
-		fgets(str1, 256, fin);	
+		fgets(str1, 256, fin);
 		i++;
-		
-		if (i == line) {
-			int len = strlen(str1); 
-			m_content = (char*)malloc(len);
-			memmove(m_content, str1, len);
 
+		if (i == line) {
+			int len = strlen(str1);
 			//Trường hợp hàm fgets nhận ký tự xuống dòng//
 			//Ví dụ len=6 nghĩa là str1 có 1 ký tự xuống dòng cuối chuỗi và 5 ký tự khác//
 			//Trên bộ nhớ thì str1 trỏ tới vùng nhớ 7 byte = 5 byte ký tự + 1 byte '\n' + 1 byte '\0' //
-			if (*(m_content + (len - 1)) == '\n') {
+			if (*(str1 + (len - 1)) == '\n') {
+				m_content = (char*)malloc(len);
+				memmove(m_content, str1, len - 1);
 				*(m_content + (len - 1)) = '\0'; //Ghi đè ký tự kết thúc chuỗi lên ký tự xuống dòng. Khi đó m_content trỏ vào vùng nhớ 6 byte, 5 byte cho ký tự, 1 byte cho ký tự kết thúc chuỗi //
+				break;
+			}
+			else {
+				m_content = (char*)malloc(len + 1);
+				memmove(m_content, str1, len);
+				*(m_content + len) = '\0';
 				break;
 			}
 		}
@@ -39,14 +44,16 @@ void Word::readfile(const char* filename, int line) {
 }
 
 void Word::copycontent(char* str) {
+	if (m_content != NULL)
+		delete[]m_content;
 	int len = strlen(str);
-	m_content = (char*)malloc(len * sizeof(char));
+	m_content = (char*)realloc(m_content, len * sizeof(char));
 	strcpy(m_content, str);
 }
 
 void Word::encrypt(int mode) {
 	int len = strlen(m_content);
-	m_encrypt = (char*)malloc(len * sizeof(char));
+	m_encrypt = (char*)realloc(m_encrypt, len * sizeof(char));
 	strcpy(m_encrypt, m_content);
 
 	if (len < 2)
@@ -99,7 +106,7 @@ void Word::shift(int deviation) {
 		return;
 
 	if (m_encrypt == NULL) {
-		m_encrypt = (char*)malloc(len * sizeof(char));
+		m_encrypt = (char*)realloc(m_encrypt, len * sizeof(char));
 		strcpy(m_encrypt, m_content);
 	}
 

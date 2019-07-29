@@ -68,6 +68,7 @@ bool processpassgame(Word ch, char answer[]) {
 
 void start() {
 	Word ch;
+	bool pass = false;
 	while (true) {
 		//Check gameover//
 		if (life <= 0)
@@ -77,18 +78,22 @@ void start() {
 		encrypt(ch);
 		cout << ch.getencrypt() << endl;
 		//Recieve answer
-		do {
-			cout << "life: "<< life << endl;
-			cout << "YOUR ANSWER: ";
-			gets_s(answer, 256);
-			cout << endl;
-		} while (!processpassgame(ch, answer) && life > 0);
+		while (!pass && life > 0) {
+				cout << "life: " << life << endl;
+				cout << "YOUR ANSWER: ";
+				gets_s(answer, 256);
+				pass = processpassgame(ch, answer);
+				cout << endl;
+
+		}
+		pass = false;
 		//next word
 		line++;
 	}
 }
 
 void newgame() {
+	system("cls");
 	resetdata();
 	start();
 }
@@ -97,17 +102,7 @@ void newgame() {
 void gameover() {
 	system("cls");
 	cout << "GAME OVER" << endl;
-	Sleep(4000);
-	exit(0);
-	/*cout << "Press 1 to play again" << endl;
-	cout << "Press 2 to exit" << endl;
-	int choose = 0;
-	cin >> choose;
-	if (_kbhit()) {
-		if (choose == 1)
-			newgame();
-		else if (choose == 2)
-			exit(0);
-	}*/
+	Sleep(2000);
+	newgame();
 }
 
